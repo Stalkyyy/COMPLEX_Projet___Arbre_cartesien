@@ -1,8 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.logging.Logger;
 
 public class Exo_1_e {
+    private static final Logger logger = Logger.getLogger(Exo_1_e.class.getName());
     private CartesianTree arb;
 
     @Before
@@ -40,6 +42,8 @@ public class Exo_1_e {
 
     @Test
     public void testTreeStructure() {
+        logger.info("\nArbre arb :\n" + arb.toString());
+        
         Node root = arb.getRoot();
         assertEquals("h", root.getKey());
 

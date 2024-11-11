@@ -281,6 +281,11 @@ public class CartesianTree {
     /* =========================================================================== */
 
 
+    /**
+     * Affiche l'arbre cartésien, en partant de la racine.
+     * 
+     * @return L'affichage de l'arbre.
+     */
     @Override
     public String toString() {
         return root.toString();

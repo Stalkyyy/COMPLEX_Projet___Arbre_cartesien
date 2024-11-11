@@ -154,6 +154,11 @@ public class Node {
     /* =========================================================================== */
 
 
+    /**
+     * Affiche le noeud, avec sa clé, priorité, et enfants.
+     * 
+     * @return L'affichage du noeud.
+     */
     @Override
     public String toString() {
         return printNode(0);

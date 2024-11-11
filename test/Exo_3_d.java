@@ -1,8 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.logging.Logger;
 
 public class Exo_3_d {
+    private static final Logger logger = Logger.getLogger(Exo_3_d.class.getName());
     private CartesianTree arb;
 
     @Before
@@ -48,6 +50,7 @@ public class Exo_3_d {
         arb_test.insert(new Node("i", 10));
         arb_test.insert(new Node("j", 12));
 
+        logger.info("\nArbre d'insertion 1 :\n" + arb_test.toString());
         assertTrue(arb.equals(arb_test));
     }
 
@@ -66,6 +69,7 @@ public class Exo_3_d {
         arb_test.insert(new Node("i", 10));
         arb_test.insert(new Node("e", 6));
 
+        logger.info("\nArbre d'insertion 2 :\n" + arb_test.toString());
         assertTrue(arb.equals(arb_test));
     }
 
@@ -84,6 +88,7 @@ public class Exo_3_d {
         arb_test.insert(new Node("a", 5));
         arb_test.insert(new Node("i", 10));
 
+        logger.info("\nArbre d'insertion 3 :\n" + arb_test.toString());
         assertTrue(arb.equals(arb_test));
     }
 }

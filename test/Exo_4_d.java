@@ -1,8 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.logging.Logger;
 
 public class Exo_4_d {
+    private static final Logger logger = Logger.getLogger(Exo_4_d.class.getName());
     private CartesianTree arb, arb_without_A, arb_without_AJ, arb_without_AJH;
 
     @Before
@@ -60,6 +62,7 @@ public class Exo_4_d {
     @Test
     public void testDelete_A() {
         arb.delete("a");
+        logger.info("\nArbre sans 'a' :\n" + arb.toString());
         assertTrue(arb.equals(arb_without_A));
     }
 
@@ -67,6 +70,8 @@ public class Exo_4_d {
     public void testDelete_AJ() {
         arb.delete("a");
         arb.delete("j");
+
+        logger.info("\nArbre sans 'a' et 'j' :\n" + arb.toString());
         assertTrue(arb.equals(arb_without_AJ));
     }
 
@@ -75,6 +80,8 @@ public class Exo_4_d {
         arb.delete("a");
         arb.delete("j");
         arb.delete("h");
+
+        logger.info("\nArbre sans 'a', 'j' et 'h' :\n" + arb.toString());
         assertTrue(arb.equals(arb_without_AJH));
     }
 }
