@@ -1,4 +1,4 @@
-./bin
+./bin/
 *.aux
 *.fdb_latexmk
 *.fls
