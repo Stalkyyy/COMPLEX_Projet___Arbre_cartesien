@@ -58,7 +58,7 @@ public class CartesianTree {
      * @return Le noeud correspondant à la clé, ou null si la clé n'est pas trouvée.
      */
     public Node searchKey(String key) {
-        return searchKey(root, key);
+        return searchKeyRec(root, key);
     }
 
     /**
@@ -68,7 +68,7 @@ public class CartesianTree {
      * @param key La clé à rechercher dans l'arbre.
      * @return Le noeud correspondant à la clé, ou null si la clé n'est pas trouvée.
      */
-    private Node searchKey(Node node, String key) {
+    private Node searchKeyRec(Node node, String key) {
         if (node == null)
             return null;
         
@@ -78,10 +78,10 @@ public class CartesianTree {
             return node;
 
         else if (key.compareTo(keyNode) < 0)
-            return searchKey(node.getChildLeft(), key);
+            return searchKeyRec(node.getChildLeft(), key);
         
         else
-            return searchKey(node.getChildRight(), key);
+            return searchKeyRec(node.getChildRight(), key);
     }
 
 
