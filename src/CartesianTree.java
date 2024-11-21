@@ -290,4 +290,43 @@ public class CartesianTree {
     public String toString() {
         return root.toString();
     }
+
+
+    /* =========================================================================== */
+
+
+    /**
+     * Return le nombre de noeud de l'arbre cartésien..
+     * 
+     * @return Le nombre de noeud de l'arbre cartésien.
+     */
+    public int nbNode() {
+        return root.nbNode();
+    }
+
+
+    /* =========================================================================== */
+
+
+    /**
+     * Retourne la somme des profondeurs des noeuds contituant l'arbre cartésien.
+     * 
+     * @return La somme des profondeurs de chaque noeud de l'arbre cartésien.
+     */
+    public int sumHeight() {
+        return root.sumHeight(0);
+    }
+
+
+    /* =========================================================================== */
+
+
+    /**
+     * Retourne la profondeur max de l'arbre cartésien.
+     * 
+     * @return La profondeur max de l'arbre cartésien.
+     */
+    public int maxHeight() {
+        return root.maxHeight(0);
+    }
 }

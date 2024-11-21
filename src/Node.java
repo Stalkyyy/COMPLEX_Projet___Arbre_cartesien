@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Représente un noeud composé d'une clé, d'une priorité et d'éventuellement un enfant gauche et droite.
  */
@@ -17,6 +19,20 @@ public class Node {
     public Node(String key, int priority) {
         this.key = key;
         this.priority = priority;
+        this.child_left = null;
+        this.child_right = null;
+    }
+
+
+    /**
+     * Crée un nouveau noeud à partir d'une clé, et lui attribue une priorité aléatoire parmi l'intervalle complet des valeurs possibles pour un int en java. 
+     * On choisit cet intervalle pour éviter d'avoir plusieurs priorités égales entre les noeuds.
+     * 
+     * @param key La clé du noeud.
+     */
+    public Node(String key) {
+        this.key = key;
+        this.priority = new Random().nextInt();
         this.child_left = null;
         this.child_right = null;
     }
@@ -192,5 +208,63 @@ public class Node {
             sb.append("null\n");
         
         return sb.toString();
+    }
+
+
+    /* =========================================================================== */
+
+
+    /**
+     * Return le nombre de noeud disponible à partir du noeud courant.
+     * 
+     * @return Le nombre de noeud de l'arbre cartésien, de racine ce noeud courant.
+     */
+    public int nbNode() {
+        int res = 1;
+
+        if (child_left != null)
+            res += child_left.nbNode();
+        
+        if (child_right != null)
+            res += child_right.nbNode();
+
+        return res;
+    }
+
+    /* =========================================================================== */
+
+
+    /**
+     * Retourne la somme des profondeurs des noeuds accessibles à partir de ce noeud courant de profondeur p.
+     * 
+     * @param p La profondeur du noeud courant.
+     * @return La somme des profondeurs des noeuds de l'arbre cartésien de racine ce noeud courant.
+     */
+    public int sumHeight(int p) {
+        int res = p;
+
+        if (child_left != null)
+            res += child_left.sumHeight(p + 1);
+        
+        if (child_right != null)
+            res += child_right.sumHeight(p + 1);
+
+        return res;
+    }
+
+
+    /* =========================================================================== */
+
+
+    /**
+     * Retourne la profondeur max des fils de du noeud courant.
+     * 
+     * @return La profondeur max des fils de du noeud courant.
+     */
+    public int maxHeight(int p) {
+        int leftHeight = (child_left != null) ? child_left.maxHeight(p + 1) : p;
+        int rightHeight = (child_right != null) ? child_right.maxHeight(p + 1) : p;
+        
+        return Math.max(leftHeight, rightHeight);
     }
 }
