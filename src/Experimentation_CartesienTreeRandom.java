@@ -1,6 +1,9 @@
+/**
+ * Cette classe permet de faire l'analyse expérimentale des performances d'un arbre cartésien aléatoire.
+ */
 public class Experimentation_CartesienTreeRandom {
     /**
-     * Analyse le temps en nanosecondes d'insertion, de suppression et de recherche d'un arbre cartésien aléatoire à n noeuds.
+     * Analyse le temps en millisecondes d'insertion, de suppression et de recherche d'un arbre cartésien aléatoire à n noeuds.
      * De plus, affiche le nombre moyen et max de profondeur de l'arbre.
      * 
      * @param args Un entier supérieure ou égale à 1, correspondant au nombre de noeuds de l'arbre.
@@ -40,14 +43,14 @@ public class Experimentation_CartesienTreeRandom {
         CartesianTree tree = new CartesianTree();
 
 
-        // Insertion de n noeud à priorités aléatoires et calcul de temps moyen.
+        // Insertion de n noeud à priorités aléatoires.
         long startTime = System.nanoTime();
         for (String key : keys)
             tree.insert(new Node(key));
         long endTime = System.nanoTime();
 
-        long meanDuration = (endTime - startTime);
-        System.out.println("Temps d'insertion de " + n + " noeuds : " + meanDuration + " nanosecondes");
+        long meanDuration = (endTime - startTime) / 1000000;
+        System.out.println("Temps d'insertion de " + n + " noeuds : " + meanDuration + " ms");
 
 
         /* =========================================================================== */
@@ -61,27 +64,27 @@ public class Experimentation_CartesienTreeRandom {
 
 
         /* =========================================================================== */
-        // Recherche de tous les noeuds individuellement dans l'arbre + calcul du temps moyen.
+        // Recherche de tous les noeuds individuellement dans l'arbre.
 
         startTime = System.nanoTime();
         for (String key : keys)
             tree.searchKey(key);
         endTime = System.nanoTime();
 
-        meanDuration = (endTime - startTime);
-        System.out.println("Temps de recherche de " + n + " noeuds : " + meanDuration + " nanosecondes");
+        meanDuration = (endTime - startTime) / 1000000;
+        System.out.println("Temps de recherche de " + n + " noeuds : " + meanDuration + " ms");
 
 
         /* =========================================================================== */
-        // Suppression de tous les noeuds individuellement dans l'arbre + calcul du temps moyen.
+        // Suppression de tous les noeuds individuellement dans l'arbre.
 
         startTime = System.nanoTime();
         for (String key : keys)
             tree.delete(key);
         endTime = System.nanoTime();
 
-        meanDuration = (endTime - startTime);
-        System.out.println("Temps de suppression moyen de " + n + " noeuds : " + meanDuration + " nanosecondes");
+        meanDuration = (endTime - startTime) / 1000000;
+        System.out.println("Temps de suppression de " + n + " noeuds : " + meanDuration + " ms");
     }
 
 

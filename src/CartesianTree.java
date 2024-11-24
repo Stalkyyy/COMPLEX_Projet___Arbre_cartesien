@@ -314,7 +314,7 @@ public class CartesianTree {
      * @return La somme des profondeurs de chaque noeud de l'arbre cartésien.
      */
     public int sumHeight() {
-        return root.sumHeight(0);
+        return (root != null) ? root.sumHeight(0) : 0;
     }
 
 
@@ -327,6 +327,6 @@ public class CartesianTree {
      * @return La profondeur max de l'arbre cartésien.
      */
     public int maxHeight() {
-        return root.maxHeight(0);
+        return (root != null) ? root.maxHeight(0) : 0;
     }
 }

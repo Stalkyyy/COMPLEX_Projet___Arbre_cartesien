@@ -14,10 +14,11 @@
 \usepackage{lipsum}
 \usepackage{hyperref}
 \usepackage{amsmath, amssymb}
+\usepackage{float}
 
-% Pour les arbres
+\usepackage{pgfplots}
 \usepackage{tikz} 
-\usetikzlibrary{shapes.geometric, trees}
+\usetikzlibrary{shapes.geometric, trees, arrows, arrows.meta}
 
 \setlength{\textfloatsep}{10pt}
 
@@ -415,6 +416,7 @@ Existe-t-il plusieurs solutions ? Qu'en est-il pour un arbre cartésien dont tou
     La construction de l'arbre se trouve dans le fichier test : \href{./test/Exo\_1\_e.java}{./test/Exo\_1\_e.java}\\
 
     Le test "testTreeStructure" affiche l'arbre obtenu dans la console de débogage.
+    
 \end{tcolorbox}
 
 
@@ -933,6 +935,151 @@ Un arbre cartésien \textit{aléatoire} est un arbre dans lequel les priorités 
 
 Pour insérer une nouvelle clé dans un arbre cartésien aléatoire, une priorité est itrée uniformément aléatoirement et c'est le noeud formé de cette clé et de
     cette priorité qui est inséré dans l'arbre.
+
+
+
+%--------------------------------------------------------------------------------
+% Question 5.a
+%--------------------------------------------------------------------------------
+
+Effectuer une analyse très détaillée d'efficacité expérimentale de votre structure de données pour un tel arbre cartésien aléatoire. En particulier :\\[-0.4cm]
+\begin{itemize}
+    \item expliquer quelles métriques sont pertinentes pour évaluer l'équilibre et l'efficacité d'un arbre cartésien par rapport à d'autres structures de données;
+    \item faire une analyse de ces métriques sur des arbres cartésiens avec un nombre de noeuds le plus grand possible (pour votre implantation);
+    \item donner un exemple d'une séquence d'insertion qui pourrait déséquilibrer un arbre binaire de recherche classique et expliquez comment un arbre cartésien se défend
+        contre cela grâce à sa structure aléatoire;
+    \item discuter, le cas échéant, des implications de la collision des priorités sur la structure de l'arbre et sur les performances des opérations.
+\end{itemize}
+
+\vspace{0.5cm}
+
+%--------------------------------------------------------------------------------
+% Les métriques pertinentes
+%--------------------------------------------------------------------------------
+
+\addcontentsline{toc}{section}{a. Les métriques pertinentes}
+\begin{tcolorbox}[colback=gray!10, colframe=blue!30, coltitle=black, title=Les métriques pertinentes]
+
+    Afin d'évaluer l'équilibre et l'efficacité d'un arbre cartésien par rapport à d'autres structures de données, on utilisera les métriques suivantes :
+
+    \begin{itemize}
+        \item \textbf{La profondeur moyenne et maximale :} En effet, ces derniers reflettent l'équilibre d'un arbre, et aura forcément un coup sur la complexité de certaines
+            opérations. Il est donc important de les comparer avec les autres structures.
+        \item \textbf{Le temps d'exécution :} Il faut comparer le temps de recherche, d'insertion et de suppression de notre arbre cartésien aléatoire et des autres
+            structures de données.
+        \item \textbf{Comparaison avec des structures de données équilibrées} : Nous allons comparer les métriques précédentes en utilisant les AVL et les arbres 
+            rouge-noir, qui donnent des arbres équilibrés. Si les résultats sont "proches", alors notre arbre cartésien aléatoire est intéressante, et naturellement
+            presque équilibrée.
+    \end{itemize}
+
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------------------------
+% L'analyse des métriques
+%--------------------------------------------------------------------------------
+
+\addcontentsline{toc}{section}{a. Analyse des métriques}
+\begin{tcolorbox}[colback=gray!10, colframe=blue!30, coltitle=black, title=Analyse des métriques - 1/2]
+
+    Après avoir exécuté \href{./src/Experimentation\_CartesienTreeRandom.java}{./src/Experimentation\_CartesienTreeRandom.java} plusieurs fois, et pour des \( n \) différents,
+        voici une moyenne des résultats :\\
+
+    \includegraphics[width=1\textwidth]{../images/profondeur.png}\\
+    \includegraphics[width=1\textwidth]{../images/temps.png}
+
+    \vspace{0.5cm}
+    \hrule
+    \vspace{0.5cm}
+
+    Pour commencer, nous voyons bien que la profondeur moyenne est proche de \( O(log n) \). En effet, en faisant pour chacune des profondeurs moyennes des arbres cartésien
+        \( \log_2(n) \), nous aurons un peu près les mêmes valeurs. Par exemple, \( \log_2(10000) = 13\), ce qui est proche de 15.\\
+
+    Pour les profondeurs max, il est normal qu'ils soient supérieures à ceux des autres structures de données équilibrées. En effet, dû à la nature probabiliste 
+        des priorités, il se peut que certaines sous-arbres soient déséquilibrés. Mais les résultats restent satisfaisants.
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=blue!30, coltitle=black, title=Analyse des métriques - 2/2]
+
+    Pour les temps d'exécution des opérations insertion, recherche et suppression, ceux des arbres équilibrées VL et Rouge-Noir sont de l'ordre de \( O(\log n) \).\\
+    
+    L'arbre cartésien nous montre que les résultats croit de manière significative avec \( n \), mais ça reste plus lent que \( n \) lui-même, et les valeurs de temps
+        sont relativement proportionnelle à \( \log n \). \\
+    
+    On peut le vérifier une dernière fois avec la différence de croissance de temps.\\[-0.4cm]
+    \begin{itemize}
+        \item \textbf{Croissance des log pour chaque n} : \(\log(10000) = 4\), \(\log(100000) = 5\), \(\log(1000000) = 6\), \(\log(10000000) = 7\)\\[-0.3cm]
+        \item \textbf{Croissance du temps d'insertion } :
+        \begin{itemize}
+            \item \textbf{Entre n = 10000 et 100000} : \( 20 \) ms (insertion), \( 14 \) ms (recherche), \( 14 \) ms (suppression).
+            \item \textbf{Entre n = 100000 et 1000000} : \( 199 \) ms (insertion), \( 155 \) ms (recherche), \( 120 \) ms (suppression).
+            \item \textbf{Entre n = 1000000 et 10000000} : \( 2130 \) ms (insertion), \( 1549 \) ms (recherche), \( 938 \) ms (suppression).
+        \end{itemize}
+    \end{itemize}
+
+    \vspace{0.5cm}
+
+    Les différences sont significatives, certes, mais on voit qu'ils suivent la tendance d'augmentation des temps qui est proportionnelle à \( \log(n) \).
+
+    \vspace{0.5cm}
+    \hrule
+    \vspace{0.5cm}
+
+    En conclusion, pour des \( n \) de plus en plus grand, notre arbre cartésien aléatoire deviendra naturellement équilibré, permettant donc d'avoir une 
+        complexité d'insertion, de recherche et de suppression optimale. Bien évidemment, à cause de l'aléatoire, nous pouvons tomber sur des cas où les performances 
+        sont moindres, voir dans les cas extrêmes, d'avoir un arbre déséquilibré. Mais cela reste de plus en plus rare, quand \( n \) augmente.
+
+\end{tcolorbox}
+
+\newpage
+
+%--------------------------------------------------------------------------------
+% La défense de l'arbre cartésien aléatoire face à l'arbre binaire de recherche
+%--------------------------------------------------------------------------------
+
+\addcontentsline{toc}{section}{a. La défense de l'arbre cartésien aléatoire face à l'arbre binaire de recherche}
+\begin{tcolorbox}[colback=gray!10, colframe=blue!30, coltitle=black, title=La défense de l'arbre cartésien aléatoire face à l'arbre binaire de recherche - 1/1]
+
+    Prenons une insertion où chaque nouvelle clé insérée est forcément supérieure à celles précédentes. Dans la logique d'insertion d'un arbre binaire de recherche,
+        nous finirons sur un arbre totalement déséquilibré qui représentera plus une chaîne qu'un arbre.\\
+
+    Grâce à la structure aléatoire de notre arbre cartésien classique, on garde l'avantage d'un arbre binaire de recherche avec les clés... Mais aussi d'éviter le plus
+        possible le cas d'une suite d'insertion non-avantageuse. En effet, en attribuant au hasard des priorités à ces éléments, l'ordre d'insertion devient négligeable,
+        étant donné que la priorité dicte la hauteur des noeuds. \\
+        
+    De plus, nous avons vu plus haut que la nature aléatoire des priorités permettent d'avoir un équilibre
+        probable, quoi que leurs clés soient triés ou non. Nous pouvons le vérifier avec notre code, où nous avons inséré constamment une clé supérieure après une autre.\\
+
+    En conclusion, un arbre cartsien se défend bien face à ce genre de séquence d'insertion en rendant uniformément aléatoire la priorité des noeuds, permettant ainsi
+        d'avoir une très faible chance d'avoir un arbre totalement déséquilibré.
+
+\end{tcolorbox}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+%--------------------------------------------------------------------------------
+% La collision des priorités et les performances des opérations
+%--------------------------------------------------------------------------------
+
+\addcontentsline{toc}{section}{a. La collision des priorités et les performances des opérations}
+\begin{tcolorbox}[colback=gray!10, colframe=blue!30, coltitle=black, title=La collision des priorités et les performances des opérations - 1/1]
+
+    Dans le cas rare mais possible qu'on tombe sur des noeuds ayant les mêmes priorités, alors nous pouvons avoir plusieurs soucis.\\
+    
+    Par exemple, dans \textbf{l'ordre d'insertion}, la stratégie implantée est ambigue. On ne sait pas quelle noeud doit être le parent de l'autre. Par conséquent, cela 
+        pourrait s'avérer être du hasard, et nous pourrions voir le risque d'avoir un arbre totalement déséquilibré. Et forcément, les performances des opérations 
+        seraient négativement impactées, étant donné qu'elles reposent sur les profondeurs des noeuds.\\
+
+    Les collisions des priorités peut donc devenir un grave soucis pour la complexité des opérations, et pour l'équilibre de l'arbre. Dans le cas de l'arbre cartésien
+        aléatoire, il est certes possible d'en avoir, mais si nous choisissons nos clés uniformément aléatoirement dans un intervalle suffisamment grand, alors il
+        reste très peu probable que ça arrive. Les bienfaits de cette structure surclasse donc l'inconvénient des collisions des priorités, et reste intéressante comme
+        alternatives.
+
+\end{tcolorbox}
+
 
 
 

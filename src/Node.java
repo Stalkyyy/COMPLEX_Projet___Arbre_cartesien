@@ -259,6 +259,7 @@ public class Node {
     /**
      * Retourne la profondeur max des fils de du noeud courant.
      * 
+     * @param p La profondeur du noeud courant.
      * @return La profondeur max des fils de du noeud courant.
      */
     public int maxHeight(int p) {
