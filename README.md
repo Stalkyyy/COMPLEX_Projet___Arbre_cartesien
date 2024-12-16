@@ -1,6 +1,6 @@
 # Projet de COMPLEX : 2024 - 2025 (Gr3)
 
-Notre projet 2024-2025 du module "Complexité, algorithmes randomisés et approchés" du master 1 de DAC à Sorbonne Université.
+Notre projet 2024-2025 du module "Complexité, algorithmes randomisés et approchés" du master d'informatique, parcours CCA, à Sorbonne Université.
 
 Les arbres cartésiens sont une structure de données qui combine les propriétés des arbres binaires de recherche et des tas. Ils ont été proposés par Jean Vuillemin en 1980. Voici un aperçu de leur structure et de leur fonctionnement :
 
