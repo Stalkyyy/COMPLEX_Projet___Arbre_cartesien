@@ -26,7 +26,7 @@ La documentation se trouve dans le répertoire `/doc`.
 
 ---
 
-PINHO FERNANDES Enzo
-BEN SALAH Adel
+- PINHO FERNANDES Enzo
+- BEN SALAH Adel
 
-Note : ???
+Note : 18/20
